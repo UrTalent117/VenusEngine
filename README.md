@@ -93,7 +93,3 @@ print("Script executed successfully!")
 - 本引擎目前处于开发阶段，仅提供基本功能
 - 渲染功能需要根据具体平台进行实现
 - 后续版本将添加更多内置组件和功能
-
-## 许可证
-
-MIT License
