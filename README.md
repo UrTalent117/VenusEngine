@@ -31,20 +31,21 @@ VenusEngine/
 
 ### 1. 环境配置
 
-- 需要安装 Lua 5.4
-- 在 `build.bat` 中配置 Lua 头文件和库文件路径：
+- 需要安装 Lua 5.4 或 5.5
+- 需要安装 MSVC 或 MinGW 编译器
+- 在 `build.bat` 中配置 Lua 路径：
   ```bat
-  set LUA_INC=D:\lua-5.4.4\include
-  set LUA_LIB=D:\lua-5.4.4\lib
+  set LUA_INC=D:\lua-5.5\include
+  set LUA_LIB=D:\lua-5.5
   ```
 
 ### 2. 编译项目
 
-运行 `build.bat` 脚本编译项目，生成 `VenusEngine.exe` 可执行文件。
+运行 `build.bat` 脚本编译项目，生成 `VenusEngine.exe` 可执行文件。脚本会自动检测编译器类型并选择相应的编译命令。
 
 ### 3. 运行引擎
 
-将生成的 `VenusEngine.exe` 复制到包含 `script.lua` 文件的目录中，运行即可执行脚本。
+将生成的 `VenusEngine.exe` 和相应的 Lua DLL 文件（如 lua55.dll）复制到包含 `script.lua` 文件的目录中，运行即可执行脚本。
 
 ### 4. 编写 Lua 脚本
 

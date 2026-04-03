@@ -1,6 +1,5 @@
 @echo off
 
-rem 配置Lua路径
 set LUA_INC=D:\lua-5.5\include
 set LUA_LIB=D:\lua-5.5
 
@@ -10,11 +9,9 @@ if not exist "%LUA_INC%\lua.hpp" (
     exit /b 1
 )
 
-rem 检测编译器
 where cl >nul 2>nul
 if %errorlevel% equ 0 (
     echo Using MSVC compiler...
-    rem 检查Lua库文件
     if exist "%LUA_LIB%\lua55.lib" (
         set LUA_LIB_FILE=%LUA_LIB%\lua55.lib
     ) else if exist "%LUA_LIB%\lua54.lib" (
@@ -29,7 +26,6 @@ if %errorlevel% equ 0 (
     where g++ >nul 2>nul
     if %errorlevel% equ 0 (
         echo Using MinGW compiler...
-        rem 检查Lua库文件
         if exist "%LUA_LIB%\liblua55.a" (
             set LUA_LIB_FILE=%LUA_LIB%\liblua55.a
         ) else if exist "%LUA_LIB%\liblua54.a" (
@@ -49,7 +45,6 @@ if %errorlevel% equ 0 (
 
 if %errorlevel% equ 0 (
     echo Build successful! VenusEngine.exe created.
-    rem 复制Lua DLL文件
     if exist "%LUA_LIB%\lua55.dll" (
         copy "%LUA_LIB%\lua55.dll" . >nul
         echo Copied lua55.dll to current directory
