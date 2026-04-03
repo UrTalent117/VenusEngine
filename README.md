@@ -31,23 +31,36 @@ VenusEngine/
 
 ### 1. 环境配置
 
-- 需要安装 Lua 5.4 或 5.5
-- 需要安装 MSVC 或 MinGW 编译器
-- 在 `build.bat` 中配置 Lua 路径：
-  ```bat
-  set LUA_INC=D:\lua-5.5\include
-  set LUA_LIB=D:\lua-5.5
-  ```
+- **安装编译器**：ual Studio 带 C++ 开需要安装 MSVC（Vis发工具）或 MinGW-w64
+- **准备 Lua 5.5 文件**：将以下文件放在 VenusEngine 目录下：
+  - `lua.hpp`（头文件）
+  - `lua55.lib`（MSVC 静态库）或 `liblua55.a`（MinGW 静态库）
+  - `lua55.dll`（动态库，可选）
 
 ### 2. 编译项目
 
-运行 `build.bat` 脚本编译项目，生成 `VenusEngine.exe` 可执行文件。脚本会自动检测编译器类型并选择相应的编译命令。
+运行 `build.bat` 脚本编译项目，生成 `VenusEngine.exe` 可执行文件。脚本会：
+1. 检查 Lua 头文件是否存在
+2. 检测可用的编译器（MSVC 或 MinGW）
+3. 根据编译器类型选择相应的编译命令
+4. 编译成功后自动复制 Lua DLL 文件
 
-### 3. 运行引擎
+### 3. 编译原理
 
-将生成的 `VenusEngine.exe` 和相应的 Lua DLL 文件（如 lua55.dll）复制到包含 `script.lua` 文件的目录中，运行即可执行脚本。
+编译过程分为以下几个步骤：
+1. **预处理**：处理头文件包含和宏定义
+2. **编译**：将 C++ 代码编译成目标文件（.obj 或 .o）
+3. **链接**：将目标文件与 Lua 库链接成可执行文件
 
-### 4. 编写 Lua 脚本
+`build.bat` 脚本会根据检测到的编译器类型执行相应的编译命令：
+- **MSVC**：使用 `cl` 命令编译，链接 `lua55.lib`
+- **MinGW**：使用 `g++` 命令编译，链接 `liblua55.a`
+
+### 4. 运行引擎
+
+将生成的 `VenusEngine.exe` 和 `lua55.dll` 文件复制到包含 `script.lua` 文件的目录中，运行即可执行脚本。
+
+### 5. 编写 Lua 脚本
 
 示例脚本 `script.lua`：
 
@@ -72,13 +85,13 @@ print("Script executed successfully!")
 
 ## 扩展指南
 
-### 添加自定义组件
+### 6. 添加自定义组件
 
 1. 在 `components.h` 中添加新的组件类，继承自 `Component` 类
 2. 实现 `draw()` 和 `erase()` 方法
 3. 在 `main.cpp` 的 `l_obj_component` 函数中添加组件类型的处理逻辑
 
-### 自定义渲染方式
+### 7. 自定义渲染方式
 
 可以通过重写组件的 `draw()` 和 `erase()` 方法来实现自定义渲染逻辑。
 
