@@ -31,7 +31,7 @@ VenusEngine/
 
 ### 1. 环境配置
 
-- **安装编译器**：ual Studio 带 C++ 开需要安装 MSVC（Vis发工具）或 MinGW-w64
+- **安装编译器**：Visual Studio 带 C++ 开需要安装 MSVC（Vis发工具）或 MinGW-w64
 - **准备 Lua 5.5 文件**：将以下文件放在 VenusEngine 目录下：
   - `lua.hpp`（头文件）
   - `lua55.lib`（MSVC 静态库）或 `liblua55.a`（MinGW 静态库）
@@ -39,11 +39,46 @@ VenusEngine/
 
 ### 2. 编译项目
 
-运行 `build.bat` 脚本编译项目，生成 `VenusEngine.exe` 可执行文件。脚本会：
-1. 检查 Lua 头文件是否存在
-2. 检测可用的编译器（MSVC 或 MinGW）
-3. 根据编译器类型选择相应的编译命令
-4. 编译成功后自动复制 Lua DLL 文件
+#### 2.1 使用系统安装的 Lua
+
+**Windows (MinGW)**：
+```bash
+g++ -std=c++11 -I. src\main.cpp -o VenusEngine.exe -llua55
+```
+
+**Windows (MSVC)**：
+```bash
+cl /EHsc /I. src\main.cpp /link lua55.lib /OUT:VenusEngine.exe
+```
+
+**Linux**：
+```bash
+g++ -std=c++11 -I. src/main.cpp -o VenusEngine -llua5.5
+```
+
+**macOS**：
+```bash
+g++ -std=c++11 -I. src/main.cpp -o VenusEngine -llua5.5
+```
+
+#### 2.2 使用本地 Lua 文件
+
+如果系统中没有安装 Lua 或需要使用特定版本的 Lua，可以将 Lua 文件放在项目目录中：
+
+**Windows (MinGW)**：
+```bash
+g++ -std=c++11 -I. src\main.cpp -o VenusEngine.exe liblua55.a
+```
+
+**Windows (MSVC)**：
+```bash
+cl /EHsc /I. src\main.cpp /link lua55.lib /OUT:VenusEngine.exe
+```
+
+**Linux/macOS**：
+```bash
+g++ -std=c++11 -I. src/main.cpp -o VenusEngine liblua5.5.a
+```
 
 ### 3. 编译原理
 
@@ -52,9 +87,15 @@ VenusEngine/
 2. **编译**：将 C++ 代码编译成目标文件（.obj 或 .o）
 3. **链接**：将目标文件与 Lua 库链接成可执行文件
 
-`build.bat` 脚本会根据检测到的编译器类型执行相应的编译命令：
-- **MSVC**：使用 `cl` 命令编译，链接 `lua55.lib`
-- **MinGW**：使用 `g++` 命令编译，链接 `liblua55.a`
+#### 3.1 编译器选择
+
+- **GCC/G++**：跨平台编译器，适用于 Linux、macOS 和 Windows (MinGW)
+- **MSVC**：Windows 专用编译器，需要安装 Visual Studio
+
+#### 3.2 链接方式
+
+- **动态链接**：使用系统安装的 Lua 库（-llua55 或 -llua5.5）
+- **静态链接**：使用本地 Lua 库文件（liblua55.a 或 lua55.lib）
 
 ### 4. 运行引擎
 
