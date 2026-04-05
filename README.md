@@ -79,11 +79,11 @@ g++ -std=c++11 -I. src\main.cpp -o VenusEngine.exe liblua55.a -lgdi32
 #### 组件类型
 
 1. **Line**
-   - 参数：x1, y1, x2, y2
+   - 参数：x1, y1, x2, y2, R, G, B
    - 功能：绘制一条线段
 
 2. **Circle**
-   - 参数：x, y, radius
+   - 参数：x, y, radius, R, G, B
    - 功能：绘制一个圆形
 
 ### C++ API
@@ -114,10 +114,10 @@ clear()
 local obj = obj_new()
 
 -- 添加线段
-obj_component(obj, "Line", 100, 100, 700, 500)
+obj_component(obj, "Line", 100, 100, 700, 500, 255, 0, 0)
 
 -- 添加圆形
-obj_component(obj, "Circle", 400, 300, 100)
+obj_component(obj, "Circle", 400, 300, 100, 0, 255, 0)
 
 -- 绘制所有组件
 obj_drawAll(obj)
@@ -132,7 +132,6 @@ present()
 
 1. 在 `components.h` 文件中定义新的组件类
 2. 在 `main.cpp` 文件的 `l_obj_component` 函数中添加组件类型的处理
-3. 引擎默认绘制白色，可以在 `graphics.h` 文件中传参修改
 
 ## 注意事项
 

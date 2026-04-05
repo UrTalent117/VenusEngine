@@ -23,14 +23,20 @@ static int l_obj_component(lua_State* L) {
         int y1 = lua_tointeger(L, 4);
         int x2 = lua_tointeger(L, 5);
         int y2 = lua_tointeger(L, 6);
-        obj->component<Line>(x1, y1, x2, y2);
+        int R = lua_tointeger(L, 7);
+        int G = lua_tointeger(L, 8);
+        int B = lua_tointeger(L, 9);
+        obj->component<Line>(x1, y1, x2, y2, R, G, B);
     } else if (strcmp(type, "Circle") == 0) {
         int x = lua_tointeger(L, 3);
         int y = lua_tointeger(L, 4);
         int radius = lua_tointeger(L, 5);
-        obj->component<Circle>(x, y, radius);
+        int R = lua_tointeger(L, 6);
+        int G = lua_tointeger(L, 7);
+        int B = lua_tointeger(L, 8);
+        obj->component<Circle>(x, y, radius, R, G, B);
     } else {
-        std::cerr << "Error: Object Component not found";
+        std::cerr << "Error: Object Component : " << type << " not found" << std::endl;
     }
     
     return 0;

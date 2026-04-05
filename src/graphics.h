@@ -46,9 +46,9 @@ public:
         RECT rect = {0, 0, width, height};
         FillRect(hdc, &rect, (HBRUSH)GetStockObject(BLACK_BRUSH));
     }
-
-    void drawLine(int x1, int y1, int x2, int y2) {
-        HPEN pen = CreatePen(PS_SOLID, 1, RGB(255, 255, 255));
+    
+    void drawLine(int x1, int y1, int x2, int y2, int R, int G, int B) {
+        HPEN pen = CreatePen(PS_SOLID, 1, RGB(R, G, B));
         HPEN oldPen = (HPEN)SelectObject(hdc, pen);
         MoveToEx(hdc, x1, y1, NULL);
         LineTo(hdc, x2, y2);
@@ -56,9 +56,9 @@ public:
         DeleteObject(pen);
     }
 
-    void drawCircle(int x, int y, int radius) {
-        HPEN pen = CreatePen(PS_SOLID, 1, RGB(255, 255, 255));
-        HBRUSH brush = CreateSolidBrush(RGB(255, 255, 255));
+    void drawCircle(int x, int y, int radius, int R, int G, int B) {
+        HPEN pen = CreatePen(PS_SOLID, 1, RGB(R, G, B));
+        HBRUSH brush = CreateSolidBrush(RGB(R, G, B));
         HPEN oldPen = (HPEN)SelectObject(hdc, pen);
         HBRUSH oldBrush = (HBRUSH)SelectObject(hdc, brush);
         Ellipse(hdc, x - radius, y - radius, x + radius, y + radius);
