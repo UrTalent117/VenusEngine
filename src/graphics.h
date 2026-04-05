@@ -9,7 +9,7 @@ private:
     int height;
 
 public:
-    Graphics(int w, int h) : width(w), height(h) {
+    Graphics(int w, int h, const char* title) : width(w), height(h) {
         WNDCLASS wc = {0};
         wc.lpfnWndProc = DefWindowProc;
         wc.hInstance = GetModuleHandle(NULL);
@@ -18,7 +18,7 @@ public:
 
         hwnd = CreateWindow(
             "VenusEngineWindow",
-            "Venus Engine",
+            title,
             WS_OVERLAPPEDWINDOW,
             CW_USEDEFAULT,
             CW_USEDEFAULT,

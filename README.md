@@ -77,12 +77,15 @@ g++ -std=c++11 -I. src\main.cpp -o VenusEngine.exe liblua55.a -lgdi32
 - `present()`: 显示图形
 
 #### 组件类型
+1. **Window**
+   - 参数：weight, height, title
+   - 功能：创建一个窗口 
 
-1. **Line**
+2. **Line**
    - 参数：x1, y1, x2, y2, R, G, B
    - 功能：绘制一条线段
 
-2. **Circle**
+3. **Circle**
    - 参数：x, y, radius, R, G, B
    - 功能：绘制一个圆形
 
@@ -112,6 +115,9 @@ clear()
 
 -- 创建对象
 local obj = obj_new()
+
+-- 创建窗口
+obj_component(obj, "Window", 1024, 768, "Venus Engine - Custom Window")
 
 -- 添加线段
 obj_component(obj, "Line", 100, 100, 700, 500, 255, 0, 0)

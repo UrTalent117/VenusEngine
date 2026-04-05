@@ -33,3 +33,24 @@ public:
     }
 };
 
+class Window : public Component {
+private:
+    int width, height;
+    const char* title;
+
+public:
+    Window(Graphics* g, int width, int height, const char* title) : Component(g), width(width), height(height), title(title) {}
+
+    void draw() override {
+        // The Window component itself may not have a visual representation, but it can set up the graphics context for its child components.
+    }
+
+    void erase() override {
+        graphics->clear();
+    }
+
+    int getWidth() const { return width; }
+    int getHeight() const { return height; }
+    const char* getTitle() const { return title; }
+};
+
